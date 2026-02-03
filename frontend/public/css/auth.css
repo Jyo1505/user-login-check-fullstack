@@ -1,0 +1,154 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+.h4{
+  color: gray;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f4037, #99f2c8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  background: #fff;
+  padding: 30px;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 20px;
+  color: #1f4037;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #1f4037;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.auth-card button:hover {
+  background: #16352e;
+}
+
+.msg {
+  margin-top: 10px;
+  font-size: 14px;
+  color: red;
+}
+
+.link {
+  margin-top: 12px;
+  font-size: 14px;
+}
+.link a {
+  color: #1f4037;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+}
+
+
+
+/* ================= MOBILE FIRST ================= */
+
+/* Card should breathe on small screens */
+.auth-card {
+  width: 90%;
+  max-width: 620px;
+  padding: 24px;
+}
+
+/* Inputs more touch-friendly */
+.auth-card input {
+  padding: 14px;
+  font-size: 16px; /* prevents zoom on iOS */
+}
+
+/* Button larger on mobile */
+.auth-card button {
+  padding: 14px;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+/* Password toggle spacing */
+.password-box .toggle {
+  font-size: 20px;
+}
+
+/* Text spacing */
+.link {
+  margin-top: 16px;
+  font-size: 15px;
+}
+
+.msg {
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+/* ================= SMALL PHONES ================= */
+@media (max-width: 360px) {
+  .auth-card {
+    padding: 20px;
+  }
+
+  .auth-card h2 {
+    font-size: 20px;
+  }
+}
+
+/* ================= TABLET & UP ================= */
+@media (min-width: 768px) {
+  .auth-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-card button {
+    border-radius: 10px;
+  }
+}

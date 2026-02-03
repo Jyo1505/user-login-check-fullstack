@@ -1,0 +1,29 @@
+# ===============================
+# Node / Backend
+# ===============================
+node_modules/
+# npm-debug.log*
+# yarn-error.log*
+
+# Environment variables
+.env
+# .env.local
+# .env.development
+# .env.production
+
+# # ===============================
+# # Database / Local files
+# # ===============================
+# *.sqlite
+# *.db
+# dump.sql
+
+# # ===============================
+# # Logs
+# # ===============================
+# logs/
+# *.log
+
+# # ===============================
+# # OS / Editor junk
+# #
