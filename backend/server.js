@@ -36,6 +36,7 @@ app.get("/test-phone", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5001;
+
 app.listen(PORT, () => {
-  console.log(`SERVER STARTED → http://localhost:${PORT}`);
+  console.log(`SERVER STARTED → ${PORT}`);
 });
