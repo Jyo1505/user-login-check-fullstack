@@ -27,7 +27,7 @@ exports.register = async (req, res) => {
     }
 
     // ✅ Check if user exists
-    const [existing] = await db.promise().query(
+    const [existing] = await db.query(
       "SELECT id FROM users WHERE email=?",
       [email]
     );
@@ -40,7 +40,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // ✅ Insert user
-    await db.promise().query(
+    await db.query(
       "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
       [name, email, hashedPassword]
     );
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
 
     const { email, password } = req.body;
 
-    const [users] = await db.promise().query(
+    const [users] = await db.query(
       "SELECT * FROM users WHERE email=?",
       [email]
     );
@@ -130,7 +130,7 @@ if (isChrome)
  {
       const otp = generateOTP();
 
-      await db.promise().query(
+      await db.query(
         "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
         [user.id, otp]
       );
@@ -170,7 +170,7 @@ exports.verifyOTP = async (req, res) => {
 
     const { userId, otp } = req.body;
 
-    const [rows] = await db.promise().query(
+    const [rows] = await db.query(
       "SELECT * FROM otp_verification WHERE user_id=? AND otp=? AND expires_at > NOW()",
       [userId, otp]
     );
@@ -190,7 +190,7 @@ exports.verifyOTP = async (req, res) => {
 
     await saveLoginHistory(userId, ip, browser, os, deviceType);
 
-    await db.promise().query(
+    await db.query(
       "DELETE FROM otp_verification WHERE user_id=?",
       [userId]
     );
