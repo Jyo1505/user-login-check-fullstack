@@ -5,6 +5,7 @@ const { generateOTP } = require("../utils/otpGenerator");
 const { isAllowedTime } = require("../utils/timeCheck");
 const UAParser = require("ua-parser-js");
 const transporter = require("../config/mail");
+const resend = require("../config/resend");
 
 /* ================= REGISTER ================= */
 
@@ -108,31 +109,57 @@ const isChrome =
   userAgent.includes("chrome") &&
   !userAgent.includes("edg") &&     // Edge
   !userAgent.includes("opr");       // Opera
+// if (isChrome) {
+//   const otp = generateOTP();
+
+//   // 1️⃣ Save OTP
+//   await db.query(
+//     "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
+//     [user.id, otp]
+//   );
+
+//   // 2️⃣ Send response immediately (VERY IMPORTANT)
+//   res.json({ otpRequired: true, userId: user.id });
+
+//   // 3️⃣ Send email asynchronously (NON-BLOCKING)
+//   transporter.sendMail({
+//     from: `"Secure Login System" <${process.env.EMAIL}>`,
+//     to: email,
+//     subject: "Your Login OTP",
+//     text: `Your OTP is ${otp}. It is valid for 5 minutes.`
+//   }).catch(err => {
+//     console.error("❌ OTP EMAIL ERROR:", err);
+//   });
+
+//   return; // 🔥 STOP execution here
+// }
+
 if (isChrome) {
   const otp = generateOTP();
 
-  // 1️⃣ Save OTP
+  // 1️⃣ Save OTP in DB
   await db.query(
     "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
     [user.id, otp]
   );
 
-  // 2️⃣ Send response immediately (VERY IMPORTANT)
+  // 2️⃣ SEND RESPONSE FIRST (VERY IMPORTANT)
   res.json({ otpRequired: true, userId: user.id });
 
-  // 3️⃣ Send email asynchronously (NON-BLOCKING)
-  transporter.sendMail({
-    from: `"Secure Login System" <${process.env.EMAIL}>`,
-    to: email,
-    subject: "Your Login OTP",
-    text: `Your OTP is ${otp}. It is valid for 5 minutes.`
-  }).catch(err => {
-    console.error("❌ OTP EMAIL ERROR:", err);
-  });
+  // 3️⃣ SEND EMAIL IN BACKGROUND (NON-BLOCKING)
+  resend.emails
+    .send({
+      from: "Secure Login <onboarding@resend.dev>",
+      to: email,
+      subject: "Your Login OTP",
+      html: `<h2>Your OTP is ${otp}</h2><p>Valid for 5 minutes</p>`
+    })
+    .catch(err => {
+      console.error("RESEND ERROR:", err);
+    });
 
-  return; // 🔥 STOP execution here
+  return; // 🔥 stop further execution
 }
-
 
     /* ===== DIRECT LOGIN ===== */
     await saveLoginHistory(user.id, ip, browser, os, deviceType);
