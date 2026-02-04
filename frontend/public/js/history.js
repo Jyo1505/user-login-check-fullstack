@@ -2,7 +2,7 @@ const API_BASE = "https://user-login-check-fullstack.onrender.com";
 async function loadHistory() {
   const userId = localStorage.getItem("userId");
 
-  const res = await fetch(`/api/history/${userId}`);
+  const res = await fetch(`${API_BASE}/api/history/${userId}`);
  const data = await res.json();
 
   let html = "";
