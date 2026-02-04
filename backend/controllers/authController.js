@@ -108,47 +108,31 @@ const isChrome =
   userAgent.includes("chrome") &&
   !userAgent.includes("edg") &&     // Edge
   !userAgent.includes("opr");       // Opera
+if (isChrome) {
+  const otp = generateOTP();
 
-if (isChrome) 
-//   const otp = generateOTP();
+  // 1️⃣ Save OTP
+  await db.query(
+    "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
+    [user.id, otp]
+  );
 
-//   await db.promise().query(
-//     "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
-//     [user.id, otp]
-//   );
+  // 2️⃣ Send response immediately (VERY IMPORTANT)
+  res.json({ otpRequired: true, userId: user.id });
 
-//   await transporter.sendMail({
-//     from: `"Secure Login System" <${process.env.EMAIL}>`,
-//     to: email,
-//     subject: "Your Login OTP",
-//     text: `Your OTP is ${otp}. It is valid for 5 minutes.`
-//   });
+  // 3️⃣ Send email asynchronously (NON-BLOCKING)
+  transporter.sendMail({
+    from: `"Secure Login System" <${process.env.EMAIL}>`,
+    to: email,
+    subject: "Your Login OTP",
+    text: `Your OTP is ${otp}. It is valid for 5 minutes.`
+  }).catch(err => {
+    console.error("❌ OTP EMAIL ERROR:", err);
+  });
 
-//   return res.json({ otpRequired: true, userId: user.id });
-// }
+  return; // 🔥 STOP execution here
+}
 
- {
-      const otp = generateOTP();
-
-      await db.query(
-        "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
-        [user.id, otp]
-      );
-
-      try {
-        await transporter.sendMail({
-          from: `"Secure Login System" <${process.env.EMAIL}>`,
-          to: email,
-          subject: "Your Login OTP",
-          text: `Your OTP is ${otp}. It is valid for 5 minutes.`
-        });
-      } catch (mailErr) {
-        console.log("❌ MAIL ERROR:", mailErr);
-        return res.status(500).json({ message: "Email service error" });
-      }
-
-      return res.json({ otpRequired: true, userId: user.id });
-    }
 
     /* ===== DIRECT LOGIN ===== */
     await saveLoginHistory(user.id, ip, browser, os, deviceType);
