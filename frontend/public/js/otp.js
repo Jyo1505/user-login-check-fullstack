@@ -1,4 +1,7 @@
-async function verifyOtp() {
+document.getElementById("demo").innerText =
+  "Demo OTP (testing): " + localStorage.getItem("demoOtp");
+
+  async function verifyOtp() {
   const otp = document.getElementById("otp").value;
   const userId = localStorage.getItem("userId");
 

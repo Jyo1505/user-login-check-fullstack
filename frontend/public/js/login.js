@@ -13,7 +13,7 @@ async function login() {
     });
 
     const data = await res.json();
-
+console.log("LOGIN RESPONSE:", data);
     if (!res.ok) {
       msg.innerText = data.message || "Login failed";
       return;
@@ -22,13 +22,17 @@ async function login() {
     if (data.otpRequired) {
   localStorage.setItem("userId", data.userId);
 
-  // ✅ SHOW DEMO OTP
+  // 🔴 SHOW OTP FIRST
   if (data.demoOtp) {
     alert("Demo OTP (for testing): " + data.demoOtp);
+  } else {
+    alert("Demo OTP missing (check backend)");
   }
 
+  // 🔴 THEN REDIRECT
   window.location.href = "otp.html";
 }
+
  else {
       localStorage.setItem("userId", data.userId);
       window.location.href = "dashboard.html";

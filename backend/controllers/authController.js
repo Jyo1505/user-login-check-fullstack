@@ -133,32 +133,20 @@ const isChrome =
 
 //   return; // 🔥 STOP execution here
 // }
-
 if (isChrome) {
   const otp = generateOTP();
 
-  // 1️⃣ Save OTP in DB
   await db.query(
     "INSERT INTO otp_verification (user_id, otp, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 5 MINUTE))",
     [user.id, otp]
   );
 
-  // 2️⃣ SEND RESPONSE WITH DEMO OTP
+  // 🔴 VERY IMPORTANT: demoOtp INCLUDED
   res.json({
     otpRequired: true,
     userId: user.id,
-    demoOtp: otp // ✅ DEMO MODE
+    demoOtp: otp
   });
-
-  // 3️⃣ TRY EMAIL (OPTIONAL – NON BLOCKING)
-  resend.emails
-    .send({
-      from: "Secure Login <onboarding@resend.dev>",
-      to: email,
-      subject: "Your Login OTP",
-      html: `<h2>Your OTP is ${otp}</h2><p>Valid for 5 minutes</p>`
-    })
-    .catch(err => console.error("EMAIL SKIPPED (SANDBOX):", err));
 
   return;
 }
