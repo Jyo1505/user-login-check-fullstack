@@ -1,4 +1,4 @@
-async function verifyOTP() {
+async function verifyOtp() {
   const otp = document.getElementById("otp").value;
   const userId = localStorage.getItem("userId");
 

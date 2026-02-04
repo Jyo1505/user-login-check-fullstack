@@ -143,10 +143,14 @@ if (isChrome) {
     [user.id, otp]
   );
 
-  // 2️⃣ SEND RESPONSE FIRST (VERY IMPORTANT)
-  res.json({ otpRequired: true, userId: user.id });
+  // 2️⃣ SEND RESPONSE WITH DEMO OTP
+  res.json({
+    otpRequired: true,
+    userId: user.id,
+    demoOtp: otp // ✅ DEMO MODE
+  });
 
-  // 3️⃣ SEND EMAIL IN BACKGROUND (NON-BLOCKING)
+  // 3️⃣ TRY EMAIL (OPTIONAL – NON BLOCKING)
   resend.emails
     .send({
       from: "Secure Login <onboarding@resend.dev>",
@@ -154,11 +158,9 @@ if (isChrome) {
       subject: "Your Login OTP",
       html: `<h2>Your OTP is ${otp}</h2><p>Valid for 5 minutes</p>`
     })
-    .catch(err => {
-      console.error("RESEND ERROR:", err);
-    });
+    .catch(err => console.error("EMAIL SKIPPED (SANDBOX):", err));
 
-  return; // 🔥 stop further execution
+  return;
 }
 
     /* ===== DIRECT LOGIN ===== */

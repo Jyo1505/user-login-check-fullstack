@@ -20,9 +20,16 @@ async function login() {
     }
 
     if (data.otpRequired) {
-      localStorage.setItem("userId", data.userId);
-      window.location.href = "otp.html";
-    } else {
+  localStorage.setItem("userId", data.userId);
+
+  // ✅ SHOW DEMO OTP
+  if (data.demoOtp) {
+    alert("Demo OTP (for testing): " + data.demoOtp);
+  }
+
+  window.location.href = "otp.html";
+}
+ else {
       localStorage.setItem("userId", data.userId);
       window.location.href = "dashboard.html";
     }
