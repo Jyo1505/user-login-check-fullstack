@@ -1,3 +1,4 @@
+const API_BASE = "https://user-login-check-fullstack.onrender.com";
 async function loadHistory() {
   const userId = localStorage.getItem("userId");
 

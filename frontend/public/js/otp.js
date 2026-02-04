@@ -1,14 +1,15 @@
+const API_BASE = "https://user-login-check-fullstack.onrender.com";
 document.addEventListener("DOMContentLoaded", () => {
   const demoOtp = localStorage.getItem("demoOtp");
   document.getElementById("demo").innerText =
-    "Demo OTP (testing): " + demoOtp;
+    "YOUR OTP : " + demoOtp;
 });
 
 async function verifyOTP() {
   const otp = document.getElementById("otp").value;
   const userId = localStorage.getItem("userId");
 
-  const res = await fetch("/api/auth/verify-otp", {
+  const res = await fetch(`${API_BASE}/api/auth/verify-otp`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId, otp })

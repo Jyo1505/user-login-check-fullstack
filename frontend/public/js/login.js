@@ -1,3 +1,4 @@
+const API_BASE = "https://user-login-check-fullstack.onrender.com";
 async function login() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
@@ -6,7 +7,7 @@ async function login() {
   msg.innerText = "";
 
   try {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })

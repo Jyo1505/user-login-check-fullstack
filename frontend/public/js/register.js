@@ -7,6 +7,7 @@
 
 // console.log("API_BASE =", API_BASE);
 
+const API_BASE = "https://user-login-check-fullstack.onrender.com";
     document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("registerForm").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -79,7 +80,7 @@ async function register() {
   }
 
   try {
-  const res = await fetch("/api/auth/register", {
+  const res = await fetch(`${API_BASE}/api/auth/register`, {
 
       method: "POST",
       headers: { "Content-Type": "application/json" },
