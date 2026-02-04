@@ -20,8 +20,10 @@ console.log("LOGIN RESPONSE:", data);
     }
 
     if (data.otpRequired) {
-  localStorage.setItem("userId", data.userId);
-  localStorage.setItem("demoOtp", data.demoOtp);
+ localStorage.removeItem("demoOtp"); // 🔥 CLEAR OLD VALUE
+localStorage.setItem("userId", data.userId);
+localStorage.setItem("demoOtp", data.demoOtp);
+
 
   console.log("Saving demoOtp:", data.demoOtp);
 

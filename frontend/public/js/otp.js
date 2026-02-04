@@ -1,7 +1,10 @@
-document.getElementById("demo").innerText =
-  "Demo OTP (testing): " + localStorage.getItem("demoOtp");
+document.addEventListener("DOMContentLoaded", () => {
+  const demoOtp = localStorage.getItem("demoOtp");
+  document.getElementById("demo").innerText =
+    "Demo OTP (testing): " + demoOtp;
+});
 
-  async function verifyOtp() {
+async function verifyOTP() {
   const otp = document.getElementById("otp").value;
   const userId = localStorage.getItem("userId");
 
@@ -17,6 +20,9 @@ document.getElementById("demo").innerText =
     document.getElementById("msg").innerText = data.message;
     return;
   }
+
+  // cleanup after success
+  localStorage.removeItem("demoOtp");
 
   window.location.href = "dashboard.html";
 }
