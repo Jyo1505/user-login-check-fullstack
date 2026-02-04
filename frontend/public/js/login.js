@@ -1,26 +1,35 @@
 async function login() {
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
+  const msg = document.getElementById("msg");
 
-  const res = await fetch("/api/auth/login", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password })
-  });
+  msg.innerText = "";
 
-  const data = await res.json();
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-  if (!res.ok) {
-    document.getElementById("msg").innerText = data.message;
-    return;
-  }
+    const data = await res.json();
 
-  if (data.otpRequired) {
-    localStorage.setItem("userId", data.userId);
-    window.location.href = "otp.html";
-  } else {
-    localStorage.setItem("userId", data.userId || "");
-    window.location.href = "dashboard.html";
+    if (!res.ok) {
+      msg.innerText = data.message || "Login failed";
+      return;
+    }
+
+    if (data.otpRequired) {
+      localStorage.setItem("userId", data.userId);
+      window.location.href = "otp.html";
+    } else {
+      localStorage.setItem("userId", data.userId);
+      window.location.href = "dashboard.html";
+    }
+
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
+    msg.innerText = "Server not responding. Try again.";
   }
 }
 
