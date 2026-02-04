@@ -21,17 +21,13 @@ console.log("LOGIN RESPONSE:", data);
 
     if (data.otpRequired) {
   localStorage.setItem("userId", data.userId);
+  localStorage.setItem("demoOtp", data.demoOtp);
 
-  // 🔴 SHOW OTP FIRST
-  if (data.demoOtp) {
-    alert("Demo OTP (for testing): " + data.demoOtp);
-  } else {
-    alert("Demo OTP missing (check backend)");
-  }
+  console.log("Saving demoOtp:", data.demoOtp);
 
-  // 🔴 THEN REDIRECT
   window.location.href = "otp.html";
 }
+
 
  else {
       localStorage.setItem("userId", data.userId);
