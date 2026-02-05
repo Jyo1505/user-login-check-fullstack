@@ -45,35 +45,22 @@
 // require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
-
-const authRoutes = require("./routes/auth.routes");
-const historyRoutes = require("./routes/history.routes");
 
 const app = express();
 
-/* ===== CORS ===== */
-app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST"],
-}));
-
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-/* ===== SERVE FRONTEND ===== */
-// IMPORTANT: frontend must be INSIDE backend/public
+/* Serve static frontend */
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
-/* ROOT → LOGIN PAGE */
 app.get("/", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
 
-/* ===== APIs ===== */
-app.use("/api/auth", authRoutes);
-app.use("/api/history", historyRoutes);
+/* Health check */
+app.get("/health", (req, res) => {
+  res.json({ status: "OK", time: new Date() });
+});
 
-/* EXPORT APP (NO app.listen) */
 module.exports = app;
