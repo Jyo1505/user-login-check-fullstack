@@ -1,12 +1,5 @@
 
 
-// const API_BASE =
-//   location.hostname === "localhost"
-//     ? "http://localhost:5001"
-//     : "http://localhost:5001"; // keep same for now
-
-// console.log("API_BASE =", API_BASE);
-
 const API_BASE = "https://user-login-check-fullstack.onrender.com";
     document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("registerForm").addEventListener("submit", function (e) {
