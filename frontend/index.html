@@ -1,7 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; url=/pages/login.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Secure Login</title>
+  <link rel="stylesheet" href="../public/css/auth.css">
 </head>
-<body></body>
+<body>
+
+<div class="auth-card">
+  <h2>Secure Login</h2>
+
+  <input type="email" id="email" placeholder="Email" required>
+  <div class="password-box">
+      <input type="password" id="password" placeholder="Password" required>
+      <span class="toggle" onclick="togglePassword('password', this)">👁</span>
+    </div>
+  <button typ="button"onclick="login()">Login</button>
+
+  <p class="msg" id="msg"></p>
+
+  <div class="link">
+   New User <a href="/pages/register.html">Register</a>
+
+
+  </div>
+</div>
+
+<script src="../public/js/login.js"></script>
+</body>
 </html>
