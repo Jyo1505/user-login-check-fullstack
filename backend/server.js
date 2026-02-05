@@ -48,9 +48,6 @@ const path = require("path");
 
 const app = express();
 
-app.use(express.json());
-
-/* Serve static frontend */
 const publicPath = path.join(__dirname, "public");
 app.use(express.static(publicPath));
 
@@ -58,9 +55,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
 
-/* Health check */
 app.get("/health", (req, res) => {
-  res.json({ status: "OK", time: new Date() });
+  res.json({ ok: true });
 });
 
 module.exports = app;
+
