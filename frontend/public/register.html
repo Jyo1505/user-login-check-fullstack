@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Register</title>
+  <link rel="stylesheet" href="../public/css/auth.css">
+</head>
+<body>
+
+<div class="auth-card">
+  <h2>Create Account</h2>
+<h4 text-color="grey"> See your login histories with devices </h4>
+  <!-- ✅ Proper form -->
+  <form id="registerForm">
+
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+
+    <div class="password-box">
+  <input type="password" id="password" placeholder="Password" required>
+  <span class="toggle" onclick="togglePassword('password', this)">👁</span>
+</div>
+
+<small id="strength"></small>
+
+<div class="password-box">
+  <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+  <span class="toggle" onclick="togglePassword('confirmPassword', this)">👁</span>
+</div>
+
+    <button type="submit">Register</button>
+
+  </form>
+
+  <p class="msg" id="msg"></p>
+
+  <div class="link">
+    Already have an account? <a href="/pages/login.html">Login</a>
+  </div>
+</div>
+
+<script src="../public/js/register.js"></script>
+</body>
+</html>
