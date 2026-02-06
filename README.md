@@ -10,6 +10,9 @@ i host that on render(for backend) railway( for databse) vercel(frontend)
 email trigges needs resend api(with paid domain) so i used ddemo otp that means it login in chrome you can get otp on screen via backend
 the code of resend in databse will work if you are using just on localhost with you credentials
 
+https://user-login-check-fullstack.vercel.app/
+
+IMPORTANT NOTE: while deploy the project i used render(for backend ) and vercel(for frontend) All platforms i used are free tier so basically while using the site while click on link refresh the page first ( for awaken the backend) . dont rush if it dont response immediately wait for bit cause(as per free tier it will take time) for response to your requests like login regiter etc
 
 
 
