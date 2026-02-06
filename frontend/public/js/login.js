@@ -1,5 +1,5 @@
 const API_BASE = "https://user-login-check-fullstack.onrender.com";
-async function login() {
+window.login=async function login() {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const msg = document.getElementById("msg");
@@ -45,7 +45,7 @@ localStorage.setItem("demoOtp", data.demoOtp);
 
 
 /* ===== PASSWORD TOGGLE ===== */
-function togglePassword(id, icon) {
+window.togglePassword=function togglePassword(id, icon) {
   const input = document.getElementById(id);
 
   if (input.type === "password") {
