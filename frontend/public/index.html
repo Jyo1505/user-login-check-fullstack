@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Secure Login</title>
+
   <link rel="stylesheet" href="/public/css/auth.css">
 </head>
 <body>
@@ -12,18 +12,19 @@
   <h2>Secure Login</h2>
 
   <input type="email" id="email" placeholder="Email" required>
+
   <div class="password-box">
-      <input type="password" id="password" placeholder="Password" required>
-      <span class="toggle" onclick="togglePassword('password', this)">👁</span>
-    </div>
-  <button type="button"onclick="login()">Login</button>
+    <input type="password" id="password" placeholder="Password" required>
+    <span class="toggle" onclick="togglePassword('password', this)">👁</span>
+  </div>
+
+  <!-- 🔴 FIXED: type -->
+  <button type="button" onclick="login()">Login</button>
 
   <p class="msg" id="msg"></p>
 
   <div class="link">
-   New User <a href="/register.html">Register</a>
-
-
+    New User <a href="/register.html">Register</a>
   </div>
 </div>
 
